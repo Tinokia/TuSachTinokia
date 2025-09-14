@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Trắc Nghiệm Theo Nhóm</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f8ff;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: #2b5aa0;
+    }
+    h3 {
+      margin-top: 20px;
+      color: #0b3d91;
+    }
+    .hidden {
+      display: none;
+    }
+    .question-box {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 20px;
+      background: #fff;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      background: #2b5aa0;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    button:hover {
+      background: #1a3e75;
+    }
+    .timer {
+      font-size: 20px;
+      font-weight: bold;
+      color: #d9534f;
+    }
+    .answers-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .answers-grid div {
+      flex: 1 1 45%;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Trắc nghiệm Vi Diệu Pháp</h1>
+  <button><a href="../index.html" style="color:#ffffff" >Trang Chủ</a></button>
+
+  <div id="selectTest">
+    
+    <div id="testGroups"></div>
+  </div>
+
+  <div id="quizArea" class="hidden">
+    <div class="timer" id="timer">Thời gian: 45s</div>
+    <form id="quizForm"></form>
+    <button onclick="submitTest()">Kết thúc</button>
+  </div>
+
+  <div id="resultArea" class="hidden">
+    <h2>Kết quả</h2>
+    <p id="score"></p>
+    <button onclick="location.reload()">Làm lại</button>
+  </div>
+  <div id="answerArea" class="hidden">
+  <h3>Đáp án đúng:</h3>
+  <div id="answerList"></div>
+</div>
+
+  <script>
+    const testData = {
+      "CITTA - TÂM VƯƠNG & CETASIKA TÂM SỞ": {
+        "de1": {
+          name: "Tâm Vương",
+          questions: [
+            { q: "Có bao nhiêu nhóm tâm Lớn trong Tâm Vương ?", a: ["1", "2", "3", "4"], correct: 1 },
+            { q: "Có bao nhiêu nhóm tâm Nhỏ trong Tâm Vương ?", a: ["5", "6", "7", "8"], correct: 2 },
+            { q: "Có bao nhiêu nhóm tâm Siêu Nhỏ trong Tâm Vương ?", a: ["21", "22", "23", "24"], correct: 2 },  
+            { q: "Có bao nhiêu nhóm lớn trong Tâm Vương Dục Giới ?", a: ["1", "2", "3", "4"], correct: 2 },  
+            { q: "Có bao nhiêu nhóm nhỏ trong Tâm Vương Dục Giới ?", a: ["6", "7", "8", "9"], correct: 3 },  
+            { q: "Trong Tâm Vương Siêu Thế có mấy nhóm lớn ?", a: ["2", "4", "6", "8"], correct: 0 },  
+            { q: "Trong Tâm Vương Siêu Thế có mấy nhóm nhỏ ?", a: ["8", "9", "10", "11"], correct: 0 },  
+            { q: "Trong Tâm Vương Bất Thiện có mấy nhóm nhỏ ?", a: ["3", "4", "13", "14"], correct: 0 },  
+            { q: "Trong Tâm Vương Vô Nhân có mấy nhóm nhỏ ?", a: ["3", "4", "5", "6"], correct: 0 },  
+            { q: "Trong Tâm Vương → Dục Giới Tịnh Hảo có mấy nhóm nhỏ ?", a: ["12", "3", "4", "14"], correct: 1 },  
+            { q: "Trong Tâm Vương → Sắc Giới có mấy nhóm nhỏ ?", a: ["3", "4", "5", "6"], correct: 0 },  
+            { q: "Trong Tâm Vương → Vô Sắc Giới có mấy nhóm nhỏ ?", a: ["3", "13", "4", "14"], correct: 0 },  
+            { q: "Trong Tâm Vương → Đạo có mấy nhóm nhỏ ?", a: ["7", "4", "9", "10"], correct: 1 },  
+            { q: "Trong Tâm Vương → Quả có mấy nhóm nhỏ ?", a: ["11", "4", "9", "10"], correct: 1 },  
+			{ q: "Trong Tâm Vương Bất Thiện có mấy loại Tâm ?", a: ["11", "12", "13", "14"], correct: 1 },  
+            { q: "Trong Tâm Vương Vô Nhân có mấy loại Tâm ?", a: ["15", "16", "17", "18"], correct: 3 },  
+            { q: "Trong Tâm Vương Dục Giới Tịnh Hảo có mấy loại Tâm ?", a: ["12", "2", "24", "4"], correct: 2 },  
+            { q: "Trong Tâm Vương Sắc Giới có mấy loại Tâm ?", a: ["14", "15", "24", "25"], correct: 1 },  
+            { q: "Trong Tâm Vương Vô Sắc Giới có mấy loại Tâm ?", a: ["11", "12", "13", "14"], correct: 1 },  
+            { q: "Trong Tâm Vương Đạo có mấy loại Tâm ?", a: ["15", "16", "25", "26"], correct: 1 },
+			{ q: "Trong Tâm Vương Quả có mấy loại Tâm ?", a: ["15", "16", "5", "6"], correct: 1 },
+			  
+			/*Tâm Bất Thiện → THAM*/
+			{ q: "Trong Tâm Vương → Tham có mấy loại Tâm Tham", a: ["7", "8", "9", "10"], correct: 1 },
+            { q: "Trong Tâm Vương → Tham có mấy loại Hữu Trợ", a: ["4", "6", "7", "8"], correct: 0 },
+            { q: "Trong Tâm Vương → Tham có mấy loại Vô Trợ", a: ["8", "9", "4", "5"], correct: 2 },
+            { q: "Trong Tâm Vương → Tham có bao nhiêu Tâm Tham Thọ Hỷ", a: ["24", "4", "5", "25"], correct: 1 },
+            { q: "Trong Tâm Vương → Tham có bao nhiêu Tâm Tham Thọ Xả", a: ["14", "15", "4", "15"], correct: 2 },  
+			{ q: "Tâm ... thọ hỷ hợp tà kiến vô trợ?", a: ["Tham", "Sân", "Si", "Nhãn Thức"], correct: 0 },			  
+            { q: "Tâm …. thọ hỷ ly tà kiến hữu trợ?", a: ["Sân", "Nhĩ Thức", "Tham", "Nhãn Thức"], correct: 2 },			  
+            { q: "Tâm …. thọ xả hợp tà kiến hữu trợ?", a: ["Thân Thức", "Si", "Nhãn", "Tham"], correct: 3 },			  
+            { q: "Tâm …. thọ xả ly tà kiến vô trợ?", a: ["Si", "Tham", "Sân", "Thiệt thức"], correct: 1 },
+			/*Tâm Bất Thiện →Sân/Si*/
+			{ q: "Trong Tâm Vương → Sân có mấy loại Tâm Sân", a: ["8", "6", "4", "2"], correct: 3 },
+            { q: "Trong Tâm Vương → Si có mấy loại Tâm Si", a: ["2", "3", "4", "5"], correct: 0 },
+            { q: "Trong Tâm Vương → Sân có mấy loại Hữu Trợ", a: ["1", "11", "2", "12"], correct: 0 },
+            { q: "Trong Tâm Vương → Sân có mấy loại Vô Trợ", a: ["4", "3", "2", "1"], correct: 3 },			  
+			{ q: "Tâm …. thọ ưu hợp phẫn nộ vô trợ?", a: ["Tham", "Sân", "Si", "Tỷ thức"], correct: 1 },			  
+            { q: "Tâm …. thọ ưu hợp phẫn nộ hữu trợ?", a: ["Sân", "Si", "Tỷ thức", "Tiếp Thâu"], correct: 0 },			  
+			{ q: "Tâm …. thọ xả hợp Hoài Nghi?", a: ["Sân", "Si", "Thiệt thức", "Tỷ thức"], correct: 1 },			  
+            { q: "Tâm …. thọ xả hợp Phóng Dật?", a: ["Tham", "Sân", "Si", "Quan Sát"], correct: 2 },
+			/*Tâm Vô nhân → Quả bất thiện/ thiện*/
+			{ q: "Trong Tâm Vương → quả bất thiện có mấy loại Tâm ?", a: ["7", "8", "14", "16"], correct: 0 },
+            { q: "Trong Tâm Vương → quả  thiện có mấy loại Tâm ?", a: ["7", "8", "14", "16"], correct: 1 },
+            { q: "Trong Tâm Vương → quả bất thiện có mấy cảnh xấu ?", a: ["6", "7", "8", "9"], correct: 0 },
+            { q: "Trong Tâm Vương → quả thiện có mấy cảnh tốt ?", a: ["7", "8", "9", "10"], correct: 0 },  
+			{ q: "Tâm thức thọ xả biết cảnh xấu có mấy loại Tâm ?", a: ["4", "6", "7", "8"], correct: 0 }, 
+            { q: "Tâm Quan Sát thọ … biết cảnh tốt có mấy loại ?", a: ["1", "2", "3", "4"], correct: 1 },
+            { q: "Tâm thức thọ xả biết cảnh tốt có mấy loại Tâm ?", a: ["3", "4", "5", "6"], correct: 1 },  
+            { q: "Tâm Khai … thọ xả có mấy loại Tâm ?", a: ["2", "3", "4", "5"], correct: 0 },  
+            { q: "Tâm …… thọ khổ ?", a: ["Thân thức", "Tiếp Thâu", "Thiệt thức", "Quan Sát"], correct: 0 },  
+            { q: "Tâm … thọ xả biết cảnh xấu gồm những tâm nào ?", a: ["Tiếp Thâu/ Quan Sát", "Tiếp Thâu/ Tỷ thức", "Quan Sát/ Thiệt thức", "Nhãn Thức/ Nhĩ Thức"], correct: 0 },  
+			{ q: "Tâm … thọ xả biết cảnh tốt gồm những tâm nào ?", a: ["Quan Sát/ Thiệt thức", "Tiếp Thâu/ Quan Sát", "Nhãn Thức/ Tỷ thức", "Nhĩ Thức/ Tiếp Thâu"], correct: 1 },  
+            { q: "Tâm Thân thức thọ lạc thuộc ?", a: ["Quả Thiện", "Quả Bất Thiện", "Duy Tác", "Quả Thiện Hữu Nhân"], correct: 0 }, 
+            { q: "Tâm Thân thức thọ khổ thuộc ?", a: ["Quả Thiện", "Quả Bất Thiện", "Duy Tác", "Quả Thiện Hữu Nhân"], correct: 1 }, 
+			{ q: "Tâm Sinh Tiếu thọ hỷ thuộc ?", a: ["Quả Thiện", "Quả Bất Thiện", "Duy Tác", "Quả Thiện Hữu Nhân"], correct: 2 },
+          ]
+        },
+      },
+     /* "CETASIKA - TÂM SỞ": {
+        "de4": {
+          name: "Hình Học Cơ Bản",
+          questions: [
+            { q: "Hình vuông có bao nhiêu cạnh?", a: ["2", "3", "4", "5"], correct: 2 },
+            { q: "Hình tam giác có bao nhiêu góc?", a: ["1", "2", "3", "4"], correct: 2 },
+            { q: "Hình tròn có mấy cạnh?", a: ["0", "1", "2", "3"], correct: 0 },
+            { q: "Hình chữ nhật có mấy cạnh?", a: ["2", "3", "4", "5"], correct: 2 },
+            { q: "Hình ngũ giác có mấy cạnh?", a: ["4", "5", "6", "7"], correct: 1 },
+            { q: "Hình tròn có bao nhiêu tâm?", a: ["1", "2", "3", "4"], correct: 0 },
+            { q: "Hình vuông có các cạnh bằng nhau?", a: ["Đúng", "Sai", "Không biết", "Tùy"], correct: 0 },
+            { q: "Hình tam giác đều có các góc?", a: ["90", "120", "60", "30"], correct: 2 },
+            { q: "Hình vuông có bao nhiêu đường chéo?", a: ["1", "2", "3", "4"], correct: 1 },
+            { q: "Hình bình hành có các cạnh đối song song?", a: ["Không", "Có", "Tùy", "Không biết"], correct: 1 }
+          ]
+        },*/
+       /* "de5": {
+          name: "Đếm Số",
+          questions: [
+            { q: "Có bao nhiêu số chẵn từ 1 đến 10?", a: ["4", "5", "6", "7"], correct: 1 },
+            { q: "Số liền sau của 9 là?", a: ["8", "9", "10", "11"], correct: 2 },
+            { q: "Tổng các số từ 1 đến 3?", a: ["3", "4", "5", "6"], correct: 3 },
+            { q: "Số nào không phải số nguyên?", a: ["2", "3", "3.5", "4"], correct: 2 },
+            { q: "Số lẻ đầu tiên là?", a: ["0", "1", "2", "3"], correct: 1 },
+            { q: "Số nào chia hết cho 2 và 3?", a: ["5", "6", "7", "8"], correct: 1 },
+            { q: "1 + 2 + 3 = ?", a: ["5", "6", "7", "8"], correct: 1 },
+            { q: "10 - 7 = ?", a: ["1", "2", "3", "4"], correct: 2 },
+            { q: "Số chẵn nhỏ nhất là?", a: ["0", "1", "2", "3"], correct: 0 },
+            { q: "Số lớn nhất trong dãy: 1, 4, 9, 3?", a: ["1", "4", "9", "3"], correct: 2 }
+          ]
+        }
+      }*/
+    };
+
+    let timer, currentTest = [], correctAnswers = [];
+
+    const groupArea = document.getElementById('testGroups');
+    for (let groupName in testData) {
+      const groupBox = document.createElement('div');
+      groupBox.innerHTML = `<h3>${groupName}</h3>`;
+      for (let key in testData[groupName]) {
+        const btn = document.createElement('button');
+        btn.innerText = testData[groupName][key].name;
+        btn.onclick = () => startTest(groupName, key);
+        groupBox.appendChild(btn);
+      }
+      groupArea.appendChild(groupBox);
+    }
+
+    function startTest(groupName, testKey) {
+      document.getElementById('selectTest').classList.add('hidden');
+      document.getElementById('quizArea').classList.remove('hidden');
+
+      const fullTest = [...testData[groupName][testKey].questions];
+      fullTest.sort(() => Math.random() - 0.7);
+      const selectedQuestions = fullTest.slice(0, 7);
+
+      currentTest = selectedQuestions.map(q => {
+        let shuffled = [...q.a];
+        const correctText = q.a[q.correct];
+        shuffled.sort(() => Math.random() - 0.7);
+        return {
+          q: q.q,
+          a: shuffled,
+          correct: shuffled.indexOf(correctText)
+        };
+      });
+
+      correctAnswers = currentTest.map(q => q.correct);
+
+      const form = document.getElementById('quizForm');
+      form.innerHTML = '';
+
+      currentTest.forEach((q, i) => {
+        const box = document.createElement('div');
+        box.className = 'question-box';
+        box.innerHTML = `<p><strong>Câu ${i + 1}:</strong> ${q.q}</p>
+          <div class="answers-grid">
+            <div><label><input type="radio" name="q${i}" value="0"> <strong>A.</strong> ${q.a[0]}</label></div>
+            <div><label><input type="radio" name="q${i}" value="1"> <strong>B.</strong> ${q.a[1]}</label></div>
+            <div><label><input type="radio" name="q${i}" value="2"> <strong>C.</strong> ${q.a[2]}</label></div>
+            <div><label><input type="radio" name="q${i}" value="3"> <strong>D.</strong> ${q.a[3]}</label></div>
+          </div>`;
+        form.appendChild(box);
+      });
+
+      startTimer();
+    }
+
+    function startTimer() {
+      let time = 45;
+      const timerEl = document.getElementById('timer');
+      timerEl.textContent = `Thời gian: ${time}s`;
+      timer = setInterval(() => {
+        time--;
+        timerEl.textContent = `Thời gian: ${time}s`;
+        if (time <= 0) {
+          clearInterval(timer);
+          submitTest();
+        }
+      }, 1000);
+    }
+
+    function submitTest() {
+  clearInterval(timer);
+  const form = document.getElementById('quizForm');
+  let score = 0;
+  let userAnswers = [];
+
+  correctAnswers.forEach((correct, i) => {
+    const selected = form.querySelector(`input[name="q${i}"]:checked`);
+    const selectedVal = selected ? parseInt(selected.value) : -1;
+    userAnswers.push(selectedVal);
+    if (selectedVal === correct) score++;
+  });
+
+  document.getElementById('quizArea').classList.add('hidden');
+  document.getElementById('resultArea').classList.remove('hidden');
+  document.getElementById('score').textContent = `Bạn trả lời đúng ${score}/${correctAnswers.length} câu.`;
+
+  // Nút xem đáp án
+  const showBtn = document.createElement("button");
+  showBtn.textContent = "Xem đáp án";
+  showBtn.onclick = () => showAnswers(userAnswers);
+  document.getElementById('resultArea').appendChild(showBtn);
+}
+function showAnswers() {
+  const answerList = document.getElementById('answerList');
+  answerList.innerHTML = '<ul>';
+
+  correctAnswers.forEach((correct, i) => {
+    const letter = String.fromCharCode(65 + correct); // A, B, C, D
+    answerList.innerHTML += `<li>Câu ${i + 1}: ${letter}</li>`;
+  });
+
+  answerList.innerHTML += '</ul>';
+  document.getElementById('answerArea').classList.remove('hidden');
+}
+
+  </script>
+
+</body>
+</html>
