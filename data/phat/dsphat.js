@@ -1,0 +1,243 @@
+const data = [
+      {
+        name: "Phật Thích Ca",
+        type: "phat",
+        desc: "Đức Phật lịch sử, sáng lập Phật giáo, còn gọi là Thích Ca Mâu Ni.",
+        practice: "Ta Bà thế giới - Trung tâm (cõi hiện tại)",
+		ghichep: "Kinh Pháp Hoa, Kinh Hoa Nghiêm",
+		chant:"Nam mô Bổn Sư Thích Ca Mâu Ni Phật",
+		vigilDay: "8/4 (Đản sinh), 15/2 (Thành đạo), 8/12 (Niết bàn)",
+        img: ""
+      },
+	  {
+        name: "Phật A Di Đà",
+        type: "phat",
+        desc: "",
+        practice: "Tây Phương Cực Lạc",
+		ghichep: "Kinh A Di Đà, Vô Lượng Thọ",
+		chant:"Nam mô A Di Đà Phật",
+		vigilDay: "17/11 Âm lịch",
+        img: ""
+      },
+	  {
+        name: "Dược Sư Lưu Ly Quang Như Lai",
+        type: "phat",
+        desc: "",
+        practice: "Lưu Ly Tịnh độ (Phương đông)",
+		ghichep: "Kinh Dược Sư",
+		chant:"Nam mô Dược Sư Lưu Ly Quang Vương Phật",
+		vigilDay: "30/09 Âm lịch",
+        img: ""
+      },
+	  {
+        name: "Bảo Sanh Phật",
+        type: "phat",
+        desc: "",
+        practice: "Bảo Trang Nghiêm thế giới (Phương đông)",
+		ghichep: "Kinh Hoa Nghiêm",
+		chant:"Nam mô Bảo Sanh Như Lai",
+		vigilDay: "30/09 Âm lịch",
+        img: ""
+      },
+	  {
+        name: "Thành Tựu Phật",
+        type: "phat",
+        desc: "",
+        practice: "Thành Tựu thế giới (Phương Nam)",
+		ghichep: "Kinh Hoa Nghiêm",
+		chant:"Nam mô Bảo Sanh Như Lai",
+		vigilDay: "16/03 Âm lịch",
+        img: ""
+      },
+	  {
+		name: "Bất Động Phật",
+		type: "phat",
+		practice: "Bất Động thế giới (Phương Đông)",
+		ghichep: "Kinh Aksobhya",
+		chant: "Nam mô Bất Động Như Lai",
+		vigilDay: "05/08 Âm lịch",
+      },
+	  {
+		name: "Sư Tử Phật",
+		type: "phat",
+		practice: "Sư Tử thế giới",
+		ghichep: "Kinh Hoa Nghiêm",
+		chant: "Nam mô Sư Tử Như Lai",
+		vigilDay: "07/08 Âm lịch",
+	},
+	{
+		name: "Hương Tích Phật",
+		type: "phat",
+		practice: "Hương Tích thế giới",
+		ghichep: "Kinh Duy Ma Cật",
+		chant: "Nam mô Hương Tích Như Lai",
+		vigilDay: "16/02 Âm lịch",
+	},
+	{
+		name: "Nhật Nguyệt Đăng Minh Phật",
+		type: "phat",
+		practice: "Nhật Nguyệt Tịnh độ",
+		ghichep: "Kinh Pháp Hoa",
+		chant: "Nam mô Nhật Nguyệt Đăng Minh Phật",
+		vigilDay: "01/08 Âm lịch",
+	},
+	{
+		name: "Tỳ Lô Giá Na Phật",
+		type: "phat",
+		practice: "Liên Hoa Tạng thế giới hải",
+		ghichep: "Kinh Hoa Nghiêm",
+		chant: "Nam mô Đại Nhật Như Lai",
+		vigilDay: "15/06 Âm lịch",
+	},
+	{
+		name: "Lô Xá Na Phật",
+		type: "phat",
+		practice: "Thế giới Trang Nghiêm",
+		ghichep: "Kinh Hoa Nghiêm",
+		chant: "Nam mô Lô Xá Na Như Lai",
+		vigilDay: "09/08 Âm lịch",
+	},
+	{
+		name: "Ca Diếp Phật",
+		type: "phat",
+		practice: "Thế giới Quá Khứ",
+		ghichep: "Kinh Tiểu thừa, Đại thừa",
+		chant: "Nam mô Ca Diếp Như Lai",
+		vigilDay: "10/08 Âm lịch",
+	},
+	{
+		name: "Câu Na Hàm Mâu Ni Phật",
+		type: "phat",
+		practice: "Quá khứ thế giới",
+		ghichep: "Kinh Quá Khứ Bảy Phật",
+		chant: "Nam mô Câu Na Hàm Mâu Ni Phật",
+		vigilDay: "01/12 Âm lịch",
+	},
+	{
+		name: "Tỳ Bà Thi Phật",
+		type: "phat",
+		practice: "Quá khứ thế giới",
+		ghichep: "Kinh Quá Khứ Bảy Phật",
+		chant: "Nam mô Tỳ Bà Thi Phật",
+		vigilDay: "02/12 Âm lịch",
+	},
+	{
+		name: "Thi Khí Phật",
+		type: "phat",
+		practice: "Quá khứ thế giới",
+		ghichep: "Kinh Quá Khứ Bảy Phật",
+		chant: "Nam mô Thi Khí Phật",
+		vigilDay: "15/02 Âm lịch",
+	},
+	{
+		name: "Câu Lưu Tôn Phật",
+		type: "phat",
+		practice: "Quá khứ thế giới",
+		ghichep: "Kinh Quá Khứ Bảy Phật",
+		chant: "Nam mô Câu Lưu Tôn Phật",
+		vigilDay: "16/02 Âm lịch",
+	},
+	{
+		name: "Câu Na Hàm Mâu Ni Phật",
+		type: "phat",
+		practice: "Quá khứ thế giới",
+		ghichep: "Kinh Quá Khứ Bảy Phật",
+		chant: "Nam mô Câu Na Hàm Mâu Ni Phật",
+		vigilDay: "17/02 Âm lịch",
+	},
+	{
+		name: "Ca Diếp Phật",
+		type: "phat",
+		practice: "Quá khứ thế giới",
+		ghichep: "Kinh Quá Khứ Bảy Phật",
+		chant: "Nam mô Ca Diếp Phật",
+		vigilDay: "18/02 Âm lịch",
+	},
+	{
+		name: "Di Lặc Phật",
+		type: "phat",
+		practice: "Đâu Suất nội viện (tương lai)",
+		ghichep: "Kinh Di Lặc Hạ Sinh",
+		chant: "Nam mô Di Lặc Vương Phật",
+		vigilDay: "01/01 Âm lịch",
+	},
+	{
+		name: "Phổ Quang Phật",
+		type: "phat",
+		practice: "Phổ Quang thế giới",
+		ghichep: "Kinh Hoa Nghiêm",
+		chant: "Nam mô Phổ Quang Phật",
+		vigilDay: "03/12 Âm lịch",
+	},
+	{
+		name: "Phổ Minh Phật",
+		type: "phat",
+		practice: "Phổ Minh thế giới",
+		ghichep: "Kinh Hoa Nghiêm",
+		chant: "Nam mô Phổ Minh Phật",
+		vigilDay: "14/03 Âm lịch",
+	},
+	{
+		name: "Phổ Tịnh Phật",
+		type: "phat",
+		practice: "Phổ Tịnh thế giới",
+		ghichep: "Kinh Hoa Nghiêm",
+		chant: "Nam mô Phổ Tịnh Phật",
+		vigilDay: "16/03 Âm lịch",
+	},
+	
+	//bồ tát
+      {name: "Quan Thế Âm Bồ Tát", type: "botat", desc: "Biểu tượng cho lòng từ bi, thường cứu khổ cứu nạn chúng sinh.", chant:"Nam Mô Đại Bi Quán Thế Âm Bồ Tát", vigilDay: "19/2, 19/6, 19/9 âm lịch", },
+	
+      {name: "Địa Tạng Vương Bồ Tát", type: "botat", desc: "Nguyện độ hết thảy chúng sinh trong địa ngục, biểu tượng cho đại nguyện kiên cố.", chant:"Nam Mô Đại Nguyện Địa Tạng Vương Bồ Tát", vigilDay: "30/7 âm lịch", },
+	
+	  { name: "Đại Thế Chí Bồ Tát", type: "botat", desc: "Hộ trợ Phật pháp, ban trí tuệ sáng suốt, đại nguyện hộ pháp.", chant:"Nam Mô Đại Thế Chí Bồ Tát", vigilDay: "17/8 âm lịch", },
+	
+	  { name: "Phổ Hiền Bồ Tát", type: "botat", desc: "Biểu tượng của hạnh nguyện vĩ đại, khuyên chúng sinh tuân theo hạnh lành.", chant:"Nam Mô Phổ Hiền Bồ Tát", vigilDay: "26/8 âm lịch", },
+	
+	  { name: "Chuẩn Đề Bồ Tát", type: "botat", desc: "Trừ khổ, tiêu tai, tăng phước, trí tuệ và thành tựu mọi nguyện cho chúng sanh.", chant: "Nam Mô Chuẩn Đề Bồ Tát Ma Ha Tát", vigilDay: "6/2 âm lịch", },
+
+	  { name: "Văn Thù Sư Lợi Bồ Tát", type: "botat", desc: "Trí tuệ bậc nhất, phá vô minh.", chant: "Nam Mô Đại Trí Văn Thù Sư Lợi Bồ Tát", vigilDay: "4/4 âm lịch", },
+	
+	  { name: "Đại Thế Chí Bồ Tát", type: "botat", desc: "Trí lực kiên cố, trợ giúp vãng sinh.", chant: "Nam Mô Đại Thế Chí Bồ Tát", vigilDay: "13/7 âm lịch", },
+
+
+	//la hán
+      {
+        name: "La Hán Ba Tiêu",
+        type: "lahan",
+        desc: "Tôn giả Phạt-Na-Bà-Tư là vị La Hán thứ 14.",
+		ghichep: "Thường ở trong núi Khả Trụ",
+		vigilDay: "Phạt-Na-Bà-Tư",
+      },
+	  {
+        name: "La Hán Cử Bát",
+        type: "lahan",
+        desc: "Tôn giả Ca-Nặc-Ca-Bạt-Ly-Đọa-Xà là vị Đại đệ tử.",
+		ghichep: "Thường trú tại Đông Thắng Thần Châu.",
+		vigilDay: "Ca-Nặc-Ca-Bạt-Ly-Đọa-Xà",
+      },
+	  {
+        name: "La Hán Hàng Long",
+        type: "lahan",
+        desc: "Tôn giả Nan-Đề-Mật-Đa-La là vị La Hán thứ 17.",
+		ghichep: "",
+		vigilDay: "Nan-Đề-Mật-Đa-La",
+      },
+	  {
+        name: "La Hán Khai Tâm",
+        type: "lahan",
+        desc: "Tôn giả Thú-Bác-Ca là vị La Hán thứ 9.",
+		ghichep: "Thường trụ trong núi Hương Túy.",
+		vigilDay: "Thú-Bác-Ca",
+      },
+    //  {
+    //    name: "Hư Không Tạng Bồ Tát",
+     //   type: "botat",
+    //    desc: "Thường ngồi trên đài sen, tay cầm bảo bình hoặc bồ cương (kho báu).",
+        //practice: "Pháp môn Nhất Tâm Niệm Phật – Đại Bi Hành",
+	//	chant:"Nam Mô Thủy Nguyệt Quan Thế Âm Bồ Tát",
+	//	vigilDay: "",
+   //     img: "https://drive.google.com/thumbnail?id=1LTbYj4d8E3lcaAk5G49mxf44Ptqw4AKy"
+   //   }
+    ];// JavaScript Document
